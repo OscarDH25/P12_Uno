@@ -20,5 +20,8 @@ public class Tablero {
 	public void setMazoDescarte(ArrayList<Carta> mazoDescarte) {
 		this.mazoDescarte = mazoDescarte;
 	}
+	public void crearCartas(ArrayList<Carta> mazo) {
+		
+	}
 
 }

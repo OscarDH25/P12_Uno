@@ -10,6 +10,10 @@ public class Jugador {
 		this.turno = turno;
 		this.mano = mano;
 	}
+	public Jugador(String nombre, boolean turno) {
+		this.nombre = nombre;
+		this.turno = turno;
+	}
 
 	public String getNombre() {
 		return nombre;
