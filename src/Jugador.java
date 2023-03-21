@@ -34,4 +34,8 @@ public class Jugador {
 	public void setMano(ArrayList<Carta> mano) {
 		this.mano = mano;
 	}
+	
+	public void recibirCarta() {
+		
+	}
 }
