@@ -1,5 +1,5 @@
 
 public enum Tipo {
-	CambiarColor,CambioSentido,SaltarTurno,Mas2,Mas4
+	CambiarColor, CambioSentido, SaltarTurno, Chupate2, Chupate4
 
 }

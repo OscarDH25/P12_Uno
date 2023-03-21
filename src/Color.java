@@ -1,4 +1,4 @@
 
 public enum Color {
-	Rojo,Verde,Amarillo,Aazul
+	Rojo, Verde, Amarillo, Azul
 }
