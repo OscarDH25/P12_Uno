@@ -18,6 +18,7 @@ public class Carta {
 	public Carta(Tipo tipo, Color color) {
 		this.tipo = tipo;
 		this.color = color;
+		numero = -1;
 	}
 
 	public Tipo getTipo() {
@@ -42,16 +43,6 @@ public class Carta {
 
 	public void setNumero(int numero) {
 		this.numero = numero;
-	}
-
-	public boolean isJugable(ArrayList<Carta> mazo, Carta carta) {
-		Carta ultimaCarta = mazo.get(mazo.size() - 1);
-		if (ultimaCarta.color == carta.color || ultimaCarta.numero == carta.numero
-				|| carta.getTipo().equals(Tipo.CambiarColor) || carta.getTipo().equals(Tipo.Chupate4)) {
-			return true;
-		} else {
-			return false;
-		}
 	}
 
 	@Override
