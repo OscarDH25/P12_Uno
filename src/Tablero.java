@@ -3,9 +3,9 @@ import java.util.Collections;
 
 public class Tablero {
 
-	private static ArrayList<Carta> mazoRobar;
-	private static ArrayList<Carta> mazoJugadas;
-	private static ArrayList<Jugador> jugadores;
+	private ArrayList<Carta> mazoRobar;
+	private ArrayList<Carta> mazoJugadas;
+	private ArrayList<Jugador> jugadores;
 
 	public Tablero(ArrayList<Jugador> jugadores) {
 		this.jugadores = jugadores;
@@ -29,12 +29,12 @@ public class Tablero {
 		this.mazoJugadas = mazoJugadas;
 	}
 
-	public static ArrayList<Jugador> getJugadores() {
+	public ArrayList<Jugador> getJugadores() {
 		return jugadores;
 	}
 
-	public static void setJugadores(ArrayList<Jugador> jugadores) {
-		Tablero.jugadores = jugadores;
+	public void setJugadores(ArrayList<Jugador> jugadores) {
+		this.jugadores = jugadores;
 	}
 
 	public void prepararPartida() {
@@ -68,10 +68,30 @@ public class Tablero {
 	private void repartir() {
 		for (int i = 0; i < 7; i++) {
 			for (Jugador jugador : jugadores) {
-				Carta carta = mazoRobar.remove(0);
-				jugador.recibirCarta(carta);
+				jugador.recibirCarta(mazoRobar.remove(0));
 			}
 		}
+		mazoJugadas.add(mazoRobar.remove(0));
 	}
 
+	public boolean isJugable(Carta carta) {
+		Carta ultimaCarta = mazoJugadas.get(mazoJugadas.size() - 1);
+
+		switch (carta.getTipo()) {
+		case Numero:
+			if (ultimaCarta.getColor() == carta.getColor() || ultimaCarta.getNumero() == carta.getNumero()) {
+				return true;
+			} else {
+				return false;
+			}
+		case Chupate2, SaltarTurno, CambioSentido:
+			if (ultimaCarta.getColor() == carta.getColor()) {
+				return true;
+			} else {
+				return false;
+			}
+		default:
+			return true;
+		}
+	}
 }
