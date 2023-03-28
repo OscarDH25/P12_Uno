@@ -9,6 +9,8 @@ public class Tablero {
 
 	public Tablero(ArrayList<Jugador> jugadores) {
 		this.jugadores = jugadores;
+		this.mazoRobar = new ArrayList<Carta>();
+		this.mazoJugadas = new ArrayList<Carta>();
 	}
 
 	public ArrayList<Carta> getMazoRobar() {

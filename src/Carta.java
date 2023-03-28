@@ -53,4 +53,9 @@ public class Carta {
 			return false;
 		}
 	}
+
+	@Override
+	public String toString() {
+		return "Carta [tipo=" + tipo + ", color=" + color + ", numero=" + numero + "]";
+	}
 }
