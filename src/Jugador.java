@@ -4,12 +4,13 @@ public class Jugador {
 	private String nombre;
 	private boolean turno;
 	private ArrayList<Carta> mano;
-	
+
 	public Jugador(String nombre, boolean turno, ArrayList<Carta> mano) {
 		this.nombre = nombre;
 		this.turno = turno;
 		this.mano = mano;
 	}
+
 	public Jugador(String nombre, boolean turno) {
 		this.nombre = nombre;
 		this.turno = turno;
@@ -38,8 +39,8 @@ public class Jugador {
 	public void setMano(ArrayList<Carta> mano) {
 		this.mano = mano;
 	}
-	
-	public void recibirCarta() {
-		
+
+	public void recibirCarta(Carta carta) {
+		mano.add(carta);
 	}
 }
