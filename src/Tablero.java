@@ -5,6 +5,11 @@ public class Tablero {
 
 	private static ArrayList<Carta> mazoRobar;
 	private static ArrayList<Carta> mazoJugadas;
+	private static ArrayList<Jugador> jugadores;
+
+	public Tablero(ArrayList<Jugador> jugadores) {
+		this.jugadores = jugadores;
+	}
 
 	public ArrayList<Carta> getMazoRobar() {
 		return mazoRobar;
@@ -22,7 +27,20 @@ public class Tablero {
 		this.mazoJugadas = mazoJugadas;
 	}
 
-	public static void crearCartas() {
+	public static ArrayList<Jugador> getJugadores() {
+		return jugadores;
+	}
+
+	public static void setJugadores(ArrayList<Jugador> jugadores) {
+		Tablero.jugadores = jugadores;
+	}
+
+	public void prepararPartida() {
+		crearCartas();
+		repartir();
+	}
+
+	private void crearCartas() {
 		for (Color color : Color.values()) {
 			for (int i = 0; i <= 9; i += 2) {
 				if (i == 0) {
@@ -43,6 +61,15 @@ public class Tablero {
 			mazoRobar.add(new Carta(Tipo.Chupate4));
 		}
 		Collections.shuffle(mazoRobar);
+	}
+
+	private void repartir() {
+		for (int i = 0; i < 7; i++) {
+			for (Jugador jugador : jugadores) {
+				Carta carta = mazoRobar.remove(0);
+				jugador.recibirCarta(carta);
+			}
+		}
 	}
 
 }

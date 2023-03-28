@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Scanner;
 
 public class Start {
@@ -17,7 +16,8 @@ public class Start {
 			}
 		}
 		System.out.println("Genial! Vamos a repartir las cartas");
-		Tablero.crearCartas();
+		Tablero tablero = new Tablero(jugadores);
+		tablero.prepararPartida();
 	}
 
 }
