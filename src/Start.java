@@ -1,10 +1,9 @@
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Scanner;
 
 public class Start {
 	private static ArrayList<Jugador> jugadores;
-	private static ArrayList<Carta> mazoRobar;
-	private static ArrayList<Carta> mazoJugadas;
 
 	public static void main(String[] args) {
 		Scanner teclado = new Scanner (System.in);
@@ -18,7 +17,7 @@ public class Start {
 			}
 		}
 		System.out.println("Genial! Vamos a repartir las cartas");
-		Carta.crearCartas(mazoRobar);
+		Tablero.crearCartas();
 	}
 
 }
