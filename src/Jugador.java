@@ -3,7 +3,7 @@ import java.util.ArrayList;
 public class Jugador {
 	private String nombre;
 	private boolean turno;
-	private ArrayList<Carta> mano;
+	private ArrayList<Carta> mano = new ArrayList<Carta>();
 
 	public Jugador(String nombre, boolean turno, ArrayList<Carta> mano) {
 		this.nombre = nombre;
