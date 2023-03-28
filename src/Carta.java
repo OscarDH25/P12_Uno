@@ -44,38 +44,25 @@ public class Carta {
 		this.numero = numero;
 	}
 
-	private static Color colorSiguiente(Color color) {
-		Color[] colores = Color.values();
-		return colores[(color.ordinal() + 1) % colores.length];
-	}
-
-	private static Tipo tipoSiguiente(Tipo tipo) {
-		Tipo[] tipos = Tipo.values();
-		return tipos[(tipo.ordinal() + 1) % tipos.length];
-	}
-
 	public static void crearCartas(ArrayList<Carta> mazoInicial) {
-		Color color = Color.Amarillo;
-		Tipo tipo = Tipo.Numero;
-		for (int i = 0; i < 4; i++) {
-			colorSiguiente(color);
-			for (int j = 0; j <= 9; j++) {
-				if (j == 0) {
-					mazoInicial.add(new Carta(tipo, color, i));
+		for (Color color : Color.values()) {
+			for (int i = 0; i <= 9; i += 2) {
+				if (i == 0) {
+					mazoInicial.add(new Carta(Tipo.Numero, color, i));
 				} else {
-					mazoInicial.add(new Carta(tipo, color, i));
-					mazoInicial.add(new Carta(tipo, color, i));
+					mazoInicial.add(new Carta(Tipo.Numero, color, i));
+					mazoInicial.add(new Carta(Tipo.Numero, color, i));
 				}
 			}
+			for (int i = 0; i < 2; i++) {
+				mazoInicial.add(new Carta(Tipo.Chupate2, color));
+				mazoInicial.add(new Carta(Tipo.CambioSentido, color));
+				mazoInicial.add(new Carta(Tipo.SaltarTurno, color));
+			}
 		}
-		for (int i = 0; i < 2; i++) {
-			tipo = Tipo.CambiarColor;
-			mazoInicial.add(new Carta(tipo));
-			mazoInicial.add(new Carta(tipo));
-			tipo = Tipo.Chupate4;
-			mazoInicial.add(new Carta(tipo));
-			mazoInicial.add(new Carta(tipo));
-
+		for (int i = 0; i < 4; i++) {
+			mazoInicial.add(new Carta(Tipo.CambiarColor));
+			mazoInicial.add(new Carta(Tipo.Chupate4));
 		}
 	}
 
