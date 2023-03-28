@@ -43,4 +43,23 @@ public class Jugador {
 	public void recibirCarta(Carta carta) {
 		mano.add(carta);
 	}
+
+	public String imprimirMano() {
+		String aux = "";
+		for (Carta carta : mano) {
+			switch (carta.getTipo()) {
+			case Numero:
+				aux += carta.getNumero() + " " + carta.getColor();
+				break;
+			case Chupate2, SaltarTurno, CambioSentido:
+				aux += carta.getTipo() + " " + carta.getColor();
+				break;
+			default:
+				aux += carta.getTipo();
+				break;
+			}
+			aux += " | ";
+		}
+		return aux.substring(0, aux.length() - 2);
+	}
 }

@@ -18,7 +18,7 @@ public class Start {
 		System.out.println("Genial! Vamos a repartir las cartas");
 		Tablero tablero = new Tablero(jugadores);
 		tablero.prepararPartida();
-		System.out.println(jugadores.get(0).getMano());
+		System.out.println(jugadores.get(0).imprimirMano());
 	}
 
 }
