@@ -18,7 +18,6 @@ public class Carta {
 	public Carta(Tipo tipo, Color color) {
 		this.tipo = tipo;
 		this.color = color;
-		numero = -1;
 	}
 
 	public Tipo getTipo() {
