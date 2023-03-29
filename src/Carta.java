@@ -11,6 +11,15 @@ public class Carta {
 		this.numero = numero;
 	}
 
+	public Carta(Tipo tipo) {
+		this.tipo = tipo;
+	}
+
+	public Carta(Tipo tipo, Color color) {
+		this.tipo = tipo;
+		this.color = color;
+	}
+
 	public Tipo getTipo() {
 		return tipo;
 	}
@@ -35,14 +44,21 @@ public class Carta {
 		this.numero = numero;
 	}
 
-	public boolean isJugable(ArrayList<Carta> mazo, Carta carta) {
-		Carta ultimaCarta = mazo.get(mazo.size() - 1);
-		if (ultimaCarta.color == carta.color || ultimaCarta.numero == carta.numero
-				|| carta.getTipo().equals(Tipo.CambiarColor) || carta.getTipo().equals(Tipo.Chupate4)) {
-			return true;
+	public String imprimirCarta(Carta carta) {
+		String aux = "";
+		switch (carta.getTipo()) {
+		case Numero:
+			aux += carta.getNumero() + " " + carta.getColor();
+			break;
+		default:
+			aux += carta.getTipo() + " " + carta.getColor();
+			break;
 		}
-		else {
-			return false;
-		}
+		return aux;
+	}
+
+	@Override
+	public String toString() {
+		return "Carta [tipo=" + tipo + ", color=" + color + ", numero=" + numero + "]";
 	}
 }

@@ -2,13 +2,10 @@ import java.util.ArrayList;
 
 public class Jugador {
 	private String nombre;
-	private boolean turno;
-	private ArrayList<Carta> mano;
-	
-	public Jugador(String nombre, boolean turno, ArrayList<Carta> mano) {
+	private ArrayList<Carta> mano = new ArrayList<Carta>();
+
+	public Jugador(String nombre) {
 		this.nombre = nombre;
-		this.turno = turno;
-		this.mano = mano;
 	}
 
 	public String getNombre() {
@@ -19,14 +16,6 @@ public class Jugador {
 		this.nombre = nombre;
 	}
 
-	public boolean isTurno() {
-		return turno;
-	}
-
-	public void setTurno(boolean turno) {
-		this.turno = turno;
-	}
-
 	public ArrayList<Carta> getMano() {
 		return mano;
 	}
@@ -34,8 +23,26 @@ public class Jugador {
 	public void setMano(ArrayList<Carta> mano) {
 		this.mano = mano;
 	}
-	
-	public void recibirCarta() {
-		
+
+	public void recibirCarta(Carta carta) {
+		mano.add(carta);
+	}
+
+	public String imprimirMano() {
+		String aux = "";
+		for (Carta carta : mano) {
+			aux += mano.indexOf(carta) + 1 + ": ";
+			aux += carta.imprimirCarta(carta);
+			aux += " | ";
+		}
+		return aux.substring(0, aux.length() - 2);
+	}
+	public boolean unoCheck() {
+		if(mano.size() == 1) {
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 }
