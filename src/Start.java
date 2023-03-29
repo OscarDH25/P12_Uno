@@ -4,6 +4,25 @@ import java.util.Scanner;
 public class Start {
 	private static ArrayList<Jugador> jugadores = new ArrayList<Jugador>();
 
+	private static int pedirInt() {
+		Scanner teclado = new Scanner(System.in);
+		while (!teclado.hasNextInt()) {
+			teclado.next();
+			System.out.println("Valor no valido");
+		}
+		return teclado.nextInt();
+	}
+
+	private static boolean victoria() {
+		boolean fin = false;
+		for (Jugador jugador : jugadores) {
+			if (jugador.getMano().isEmpty()) {
+				fin = true;
+			}
+		}
+		return fin;
+	}
+
 	public static void main(String[] args) {
 		Scanner teclado = new Scanner(System.in);
 		System.out.println("Bienvenidos!!!, vamos a jugar al UNO!");
@@ -12,13 +31,24 @@ public class Start {
 			System.out.println("Introduce el nombre del jugador | Introduce un 0 para no añadir mas jugadores");
 			nombre = teclado.nextLine();
 			if (!nombre.equals("0")) {
-				jugadores.add(new Jugador(nombre, false));
+				jugadores.add(new Jugador(nombre));
 			}
 		}
 		System.out.println("Genial! Vamos a repartir las cartas");
 		Tablero tablero = new Tablero(jugadores);
 		tablero.prepararPartida();
-		System.out.println(jugadores.get(0).imprimirMano());
+		int jugadorActual = 0;
+		while (!victoria()) {
+			int sentido = 1; // Sentido normal, -1 = sentido invertido
+			Jugador jugador = jugadores.get(jugadorActual);
+			System.out.println(jugador.getNombre() + " te toca! Elige la carta que quieres jugar");
+			System.out.println(jugador.imprimirMano());
+			int cartaJugada = pedirInt();
+			while (cartaJugada < 1 || cartaJugada > jugador.getMano().size()) {
+				System.out.println("Valor invalido, vuelve a introducir que carta quieres jugar");
+				System.out.println(jugador.imprimirMano());
+			}
+			tablero.jugarCarta(jugador.getMano().get(cartaJugada));
+		}
 	}
-
 }

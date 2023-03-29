@@ -2,18 +2,10 @@ import java.util.ArrayList;
 
 public class Jugador {
 	private String nombre;
-	private boolean turno;
 	private ArrayList<Carta> mano = new ArrayList<Carta>();
 
-	public Jugador(String nombre, boolean turno, ArrayList<Carta> mano) {
+	public Jugador(String nombre) {
 		this.nombre = nombre;
-		this.turno = turno;
-		this.mano = mano;
-	}
-
-	public Jugador(String nombre, boolean turno) {
-		this.nombre = nombre;
-		this.turno = turno;
 	}
 
 	public String getNombre() {
@@ -22,14 +14,6 @@ public class Jugador {
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
-	}
-
-	public boolean isTurno() {
-		return turno;
-	}
-
-	public void setTurno(boolean turno) {
-		this.turno = turno;
 	}
 
 	public ArrayList<Carta> getMano() {
@@ -49,13 +33,13 @@ public class Jugador {
 		for (Carta carta : mano) {
 			switch (carta.getTipo()) {
 			case Numero:
-				aux += carta.getNumero() + " " + carta.getColor();
+				aux += mano.indexOf(carta) + 1 + ": " + carta.getNumero() + " " + carta.getColor();
 				break;
 			case Chupate2, SaltarTurno, CambioSentido:
-				aux += carta.getTipo() + " " + carta.getColor();
+				aux += mano.indexOf(carta) + 1 + ": " + carta.getTipo() + " " + carta.getColor();
 				break;
 			default:
-				aux += carta.getTipo();
+				aux += mano.indexOf(carta) + 1 + ": " + carta.getTipo();
 				break;
 			}
 			aux += " | ";

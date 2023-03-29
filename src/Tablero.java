@@ -75,8 +75,7 @@ public class Tablero {
 	}
 
 	public boolean isJugable(Carta carta) {
-		Carta ultimaCarta = mazoJugadas.get(mazoJugadas.size() - 1);
-
+		Carta ultimaCarta = ultimaCarta();
 		switch (carta.getTipo()) {
 		case Numero:
 			if (ultimaCarta.getColor() == carta.getColor() || ultimaCarta.getNumero() == carta.getNumero()) {
@@ -115,6 +114,26 @@ public class Tablero {
 		}
 		return null;
 
+	}
+
+	public void jugarCarta(Carta carta) {
+		if (isJugable(carta)) {
+			switch (carta.getTipo()) {
+			case Numero:
+				mazoJugadas.add(carta);
+				break;
+			case CambioSentido:
+				break;
+			case SaltarTurno:
+				break;
+			case Chupate2:
+				break;
+			case Chupate4:
+				break;
+			case CambiarColor:
+				break;
+			}
+		}
 	}
 
 }
