@@ -13,6 +13,7 @@ public class Start {
 		return teclado.nextInt();
 	}
 
+
 	private static boolean victoria() {
 		boolean fin = false;
 		for (Jugador jugador : jugadores) {
@@ -39,16 +40,34 @@ public class Start {
 		tablero.prepararPartida();
 		int jugadorActual = 0;
 		while (!victoria()) {
-			int sentido = 1; // Sentido normal, -1 = sentido invertido
 			Jugador jugador = jugadores.get(jugadorActual);
-			System.out.println(jugador.getNombre() + " te toca! Elige la carta que quieres jugar");
+			System.out.println(
+					"\n" + jugador.getNombre() + " te toca! Elige la carta que quieres jugar o pulsa 0 para robar");
 			System.out.println(jugador.imprimirMano());
+			Carta ultimaCarta = tablero.ultimaCarta();
+			System.out.println("Carta actual: " + ultimaCarta.imprimirCarta(tablero.ultimaCarta()));
 			int cartaJugada = pedirInt();
 			while (cartaJugada < 1 || cartaJugada > jugador.getMano().size()) {
-				System.out.println("Valor invalido, vuelve a introducir que carta quieres jugar");
+				System.out.println("Valor invalido, vuelve a introducir que carta quieres jugar o 0 para robar");
 				System.out.println(jugador.imprimirMano());
+				cartaJugada = pedirInt();
 			}
-			tablero.jugarCarta(jugador.getMano().get(cartaJugada));
+			if (cartaJugada == 0) {
+				tablero.robarCarta(jugador);
+			} else {
+				if (tablero.jugarCarta(jugador.getMano().get(cartaJugada - 1), jugador)) {
+					jugadorActual = (jugadorActual + tablero.getSentido()+ tablero.saltarTurno()) % jugadores.size();
+				} else {
+					System.out.println("No puedes jugar esa carta");
+				}
+			}
+			if(jugador.unoCheck()) {
+				System.out.println("UNO!!!!!");
+			}
+			if(tablero.getMazoRobar().isEmpty()) {
+				tablero.voltearMazo();
+			}
 		}
+		System.out.println("Fin de la partida");
 	}
 }

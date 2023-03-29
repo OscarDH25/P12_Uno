@@ -31,19 +31,18 @@ public class Jugador {
 	public String imprimirMano() {
 		String aux = "";
 		for (Carta carta : mano) {
-			switch (carta.getTipo()) {
-			case Numero:
-				aux += mano.indexOf(carta) + 1 + ": " + carta.getNumero() + " " + carta.getColor();
-				break;
-			case Chupate2, SaltarTurno, CambioSentido:
-				aux += mano.indexOf(carta) + 1 + ": " + carta.getTipo() + " " + carta.getColor();
-				break;
-			default:
-				aux += mano.indexOf(carta) + 1 + ": " + carta.getTipo();
-				break;
-			}
+			aux += mano.indexOf(carta) + 1 + ": ";
+			aux += carta.imprimirCarta(carta);
 			aux += " | ";
 		}
 		return aux.substring(0, aux.length() - 2);
+	}
+	public boolean unoCheck() {
+		if(mano.size() == 1) {
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 }

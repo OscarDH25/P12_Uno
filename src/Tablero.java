@@ -1,16 +1,19 @@
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Scanner;
 
 public class Tablero {
 
 	private ArrayList<Carta> mazoRobar;
 	private ArrayList<Carta> mazoJugadas;
 	private ArrayList<Jugador> jugadores;
+	private int sentido;
 
 	public Tablero(ArrayList<Jugador> jugadores) {
 		this.jugadores = jugadores;
 		this.mazoRobar = new ArrayList<Carta>();
 		this.mazoJugadas = new ArrayList<Carta>();
+		sentido = 1;
 	}
 
 	public ArrayList<Carta> getMazoRobar() {
@@ -35,6 +38,14 @@ public class Tablero {
 
 	public void setJugadores(ArrayList<Jugador> jugadores) {
 		this.jugadores = jugadores;
+	}
+
+	public int getSentido() {
+		return sentido;
+	}
+
+	public void setSentido(int sentido) {
+		this.sentido = sentido;
 	}
 
 	public void prepararPartida() {
@@ -99,41 +110,88 @@ public class Tablero {
 		return mazoJugadas.get(mazoJugadas.size() - 1);
 	}
 
-	public String jugarCambiarColor(Jugador jugador, Color nuevoColor) {
-
-		Carta ultimaCarta = ultimaCarta();
-
-		if (ultimaCarta == null || ultimaCarta.getTipo() == Tipo.CambiarColor) {
-
-			Carta cartaJugada = jugador.getMano().remove(0);
-			cartaJugada.setColor(nuevoColor);
-			mazoJugadas.add(cartaJugada);
-
-		} else {
-			return "no se puede jugar esa carta";
-		}
-		return null;
-
+	private void soltarCarta(Carta carta, Jugador jugador) {
+		mazoJugadas.add(jugador.getMano().remove(jugador.getMano().indexOf(carta)));
 	}
 
-	public void jugarCarta(Carta carta) {
+	public void robarCarta(Jugador jugador) {
+		jugador.recibirCarta(mazoRobar.remove(0));
+	}
+
+	private void cambioSentido() {
+		switch (sentido) {
+		case 1:
+			sentido = -1;
+			break;
+		case -1:
+			sentido = 1;
+		}
+	}
+
+	public void cambiarColor() {
+		Scanner teclado = new Scanner(System.in);
+		System.out.println("¿A que color quieres cambiar?");
+		Carta ultimaCarta = ultimaCarta();
+		ultimaCarta.setColor();
+	}
+
+	private void chupate(int cartas, Jugador jugador) {
+		int indJugadorActual = jugadores.indexOf(jugador);
+		Jugador siguienteJugador = jugadores.get(indJugadorActual + 1);
+		for (int i = 0; i < cartas; i++) {
+			siguienteJugador.recibirCarta(mazoRobar.remove(0));
+		}
+	}
+
+	public int saltarTurno() {
+		switch (sentido) {
+		case 1:
+			return 1;
+		case -1:
+			return -1;
+		default:
+			return 0;
+		}
+	}
+
+	public boolean jugarCarta(Carta carta, Jugador jugador) {
 		if (isJugable(carta)) {
 			switch (carta.getTipo()) {
 			case Numero:
-				mazoJugadas.add(carta);
+				soltarCarta(carta, jugador);
 				break;
 			case CambioSentido:
+				soltarCarta(carta, jugador);
+				cambioSentido();
 				break;
 			case SaltarTurno:
+				soltarCarta(carta, jugador);
+				saltarTurno();
 				break;
 			case Chupate2:
+				soltarCarta(carta, jugador);
+				chupate(2, jugador);
 				break;
 			case Chupate4:
+				soltarCarta(carta, jugador);
+				chupate(4, jugador);
+				cambioColor();
 				break;
 			case CambiarColor:
+				soltarCarta(carta, jugador);
+				cambioColor();
 				break;
 			}
+			return true;
+		} else {
+			return false;
 		}
+	}
+
+	public void voltearMazo() {
+		mazoRobar = mazoJugadas;
+		Collections.shuffle(mazoRobar);
+		mazoJugadas.add(mazoRobar.remove(0));
 	}
 
 }

@@ -44,6 +44,22 @@ public class Carta {
 		this.numero = numero;
 	}
 
+	public String imprimirCarta(Carta carta) {
+		String aux = "";
+		switch (carta.getTipo()) {
+		case Numero:
+			aux += carta.getNumero() + " " + carta.getColor();
+			break;
+		case Chupate2, SaltarTurno, CambioSentido:
+			aux += carta.getTipo() + " " + carta.getColor();
+			break;
+		default:
+			aux += carta.getTipo();
+			break;
+		}
+		return aux;
+	}
+
 	@Override
 	public String toString() {
 		return "Carta [tipo=" + tipo + ", color=" + color + ", numero=" + numero + "]";
