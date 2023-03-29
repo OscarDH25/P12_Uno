@@ -93,5 +93,28 @@ public class Tablero {
 		default:
 			return true;
 		}
+
 	}
+
+	public Carta ultimaCarta() {
+		return mazoJugadas.get(mazoJugadas.size() - 1);
+	}
+
+	public String jugarCambiarColor(Jugador jugador, Color nuevoColor) {
+
+		Carta ultimaCarta = ultimaCarta();
+
+		if (ultimaCarta == null || ultimaCarta.getTipo() == Tipo.CambiarColor) {
+
+			Carta cartaJugada = jugador.getMano().remove(0);
+			cartaJugada.setColor(nuevoColor);
+			mazoJugadas.add(cartaJugada);
+
+		} else {
+			return "no se puede jugar esa carta";
+		}
+		return null;
+
+	}
+
 }
