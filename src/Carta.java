@@ -50,11 +50,8 @@ public class Carta {
 		case Numero:
 			aux += carta.getNumero() + " " + carta.getColor();
 			break;
-		case Chupate2, SaltarTurno, CambioSentido:
-			aux += carta.getTipo() + " " + carta.getColor();
-			break;
 		default:
-			aux += carta.getTipo();
+			aux += carta.getTipo() + " " + carta.getColor();
 			break;
 		}
 		return aux;

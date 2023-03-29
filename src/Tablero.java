@@ -82,7 +82,14 @@ public class Tablero {
 				jugador.recibirCarta(mazoRobar.remove(0));
 			}
 		}
+		primeraCarta();
+	}
+
+	private void primeraCarta() {
 		mazoJugadas.add(mazoRobar.remove(0));
+		while (ultimaCarta().getTipo() == Tipo.CambiarColor || ultimaCarta().getTipo() == Tipo.Chupate4) {
+			mazoJugadas.add(mazoRobar.remove(0));
+		}
 	}
 
 	public boolean isJugable(Carta carta) {
@@ -128,11 +135,19 @@ public class Tablero {
 		}
 	}
 
-	public void cambiarColor() {
+	public void cambiarColor(Carta carta, Jugador jugador) {
 		Scanner teclado = new Scanner(System.in);
 		System.out.println("¿A que color quieres cambiar?");
-		Carta ultimaCarta = ultimaCarta();
-		ultimaCarta.setColor();
+		String color = teclado.nextLine();
+		color = color.substring(0, 1).toUpperCase() + color.substring(1).toLowerCase();
+		while (!color.equals("Rojo") && !color.equals("Azul") && !color.equals("Verde") && !color.equals("Amarillo")) {
+			System.out.println("Introduce un color valido");
+			color = teclado.nextLine();
+			color = color.substring(0, 1).toUpperCase() + color.substring(1).toLowerCase();
+		}
+		carta.setColor(Color.valueOf(color));
+		soltarCarta(carta, jugador);
+
 	}
 
 	private void chupate(int cartas, Jugador jugador) {
@@ -143,7 +158,15 @@ public class Tablero {
 		}
 	}
 
-	public int saltarTurno() {
+	public int saltarTurnoCheck() {
+		int check = 0;
+		if (ultimaCarta().getTipo() == Tipo.SaltarTurno)
+			return saltarTurno();
+		else
+			return 0;
+	}
+
+	private int saltarTurno() {
 		switch (sentido) {
 		case 1:
 			return 1;
@@ -152,6 +175,7 @@ public class Tablero {
 		default:
 			return 0;
 		}
+
 	}
 
 	public boolean jugarCarta(Carta carta, Jugador jugador) {
@@ -166,20 +190,17 @@ public class Tablero {
 				break;
 			case SaltarTurno:
 				soltarCarta(carta, jugador);
-				saltarTurno();
 				break;
 			case Chupate2:
 				soltarCarta(carta, jugador);
 				chupate(2, jugador);
 				break;
 			case Chupate4:
-				soltarCarta(carta, jugador);
 				chupate(4, jugador);
-				cambioColor();
+				cambiarColor(carta, jugador);
 				break;
 			case CambiarColor:
-				soltarCarta(carta, jugador);
-				cambioColor();
+				cambiarColor(carta, jugador);
 				break;
 			}
 			return true;
@@ -191,7 +212,7 @@ public class Tablero {
 	public void voltearMazo() {
 		mazoRobar = mazoJugadas;
 		Collections.shuffle(mazoRobar);
-		mazoJugadas.add(mazoRobar.remove(0));
+		primeraCarta();
 	}
 
 }

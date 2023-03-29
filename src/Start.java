@@ -56,7 +56,7 @@ public class Start {
 				tablero.robarCarta(jugador);
 			} else {
 				if (tablero.jugarCarta(jugador.getMano().get(cartaJugada - 1), jugador)) {
-					jugadorActual = (jugadorActual + tablero.getSentido()+ tablero.saltarTurno()) % jugadores.size();
+					jugadorActual = (jugadorActual + tablero.getSentido()+ tablero.saltarTurnoCheck()) % jugadores.size();
 				} else {
 					System.out.println("No puedes jugar esa carta");
 				}
