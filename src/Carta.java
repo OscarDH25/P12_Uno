@@ -51,7 +51,11 @@ public class Carta {
 			aux += carta.getNumero() + " " + carta.getColor();
 			break;
 		default:
-			aux += carta.getTipo() + " " + carta.getColor();
+			if (!(carta.getColor() == null)) {
+				aux += carta.getTipo() + " " + carta.getColor();
+			} else {
+				aux += carta.getTipo();
+			}
 			break;
 		}
 		return aux;
